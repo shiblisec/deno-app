@@ -1,6 +1,9 @@
 import { Manifest } from "deno-slack-sdk/mod.ts";
 import { AdditionWorkflow } from "./workflows/test_workflow.ts";
 import { AdditionFunctionDefinition } from "./functions/add_numbers.ts";
+import "std/dotenv/load.ts"
+import GoogleProvider from "./external_auth/google_provider.ts";
+
 /**
  * The app manifest contains the app's configuration. This
  * file defines attributes like app name and description.
@@ -12,8 +15,9 @@ export default Manifest({
   icon: "assets/default_new_app_icon.png",
   functions: [AdditionFunctionDefinition],
   workflows: [AdditionWorkflow],
+  externalAuthProviders: [GoogleProvider],
   outgoingDomains: [],
-  botScopes: ["commands", "chat:write", "chat:write.public", "canvases:write", "canvases:read"],
+  botScopes: ["commands", "chat:write", "chat:write.public", "canvases:write", "canvases:read", "files:read"],
   features: {
     appHome: {
       messagesTabEnabled: true,

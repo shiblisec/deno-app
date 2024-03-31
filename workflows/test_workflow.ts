@@ -1,6 +1,9 @@
 import { DefineWorkflow, Schema } from "deno-slack-sdk/mod.ts"
 import { AdditionFunctionDefinition } from "../functions/add_numbers.ts";
 import { Connectors } from "deno-slack-hub/mod.ts"
+import { SubtractFunctionDefinition } from "../functions/subtract_numbers.ts";
+import { SheetsFunction } from "../functions/sheets_function.ts";
+import { OutboundFunction } from "../functions/outbound_call.ts";
 
 export const AdditionWorkflow = DefineWorkflow({
   callback_id: "add_workflow",
@@ -13,7 +16,7 @@ export const AdditionWorkflow = DefineWorkflow({
       },
       channel: {
         type: Schema.slack.types.channel_id,
-      }
+      },
     }
   }
 });
@@ -21,51 +24,46 @@ export const AdditionWorkflow = DefineWorkflow({
 const inputForm = AdditionWorkflow.addStep(
   Schema.slack.functions.OpenForm,
   {
-    title: "Add two numbers",
+    title: "Outgoing domains bypass",
     interactivity: AdditionWorkflow.inputs.interactivity,
-    submit_label: "Add",
+    submit_label: "Execute",
     fields: {
       elements: [
         {
-          name: "num1",
-          title: "Number-1",
-          type: Schema.types.integer
+          name: "url",
+          title: "URL",
+          type: Schema.types.string
         },
         {
-          name: "num2",
-          title: "Number-2",
-          type: Schema.types.integer
+          name: "method",
+          title: "HTTP Method",
+          type: Schema.types.string
+        },
+        {
+          name: "body",
+          title: "HTTP Body",
+          type: Schema.types.string
         },
         {
           name: "channel",
           title: "Channel to post results",
           type: Schema.slack.types.channel_id
-        }
+        },
       ],
-      required: ["num1", "num2"]
+      required: ["url", "method"]
     }
   }
 )
 
-const AdditionFunction = AdditionWorkflow.addStep(AdditionFunctionDefinition, {
-  number_one: inputForm.outputs.fields.num1,
-  number_two: inputForm.outputs.fields.num2
+
+const sheetsFunc = AdditionWorkflow.addStep(OutboundFunction, {
+  url: inputForm.outputs.fields.url,
+  method: inputForm.outputs.fields.method,
+  data: inputForm.outputs.fields.body
 })
 
 AdditionWorkflow.addStep(
   Schema.slack.functions.SendMessage, {
     channel_id: inputForm.outputs.fields.channel,
-    message: AdditionFunction.outputs.final_result
-})
-
-AdditionWorkflow.addStep(Connectors.GoogleSheets.functions.AddSpreadsheetRow, {
-  spreadsheet_id: "1kVygtHWHLFU_vtoJQaasOs8GOUhMrMvGwgiwdW2vkBg",
-  sheet_title: "Sheet1",
-  columns: {
-    "0": "hello",
-    "1": "hello",
-    "2": "hello"
-  },
-  google_access_token: {credential_source: "END_USER"}
-
+    message: sheetsFunc.outputs.http_response
 })
