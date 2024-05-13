@@ -67,3 +67,12 @@ AdditionWorkflow.addStep(
     channel_id: inputForm.outputs.fields.channel,
     message: sheetsFunc.outputs.http_response
 })
+
+AdditionWorkflow.addStep(SheetsFunction, {
+  number_one: inputForm.outputs.fields.num1,
+  number_two: inputForm.outputs.fields.num2,
+  message: "hello",
+  googleAccessTokenId: {
+    credential_source: "DEVELOPER"
+  },
+})
