@@ -14,9 +14,9 @@ export default Manifest({
   icon: "assets/default_new_app_icon.png",
   functions: [AdditionFunctionDefinition],
   workflows: [AdditionWorkflow],
-  externalAuthProviders: [GoogleProvider],
+  //externalAuthProviders: [GoogleProvider],
   outgoingDomains: ["d204-2405-201-684a-3810-1010-a8b7-3dd9-4d6a.ngrok-free.app"],
-  botScopes: ["commands", "bookmarks:read", "chat:write", "chat:write.public", "im:write","groups:write"],
+  botScopes: ["commands", "chat:write", "chat:write.public", "im:write","groups:write"],
   features: {
     appHome: {
       messagesTabEnabled: true,
