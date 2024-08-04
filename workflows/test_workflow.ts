@@ -60,3 +60,4 @@ const canvas_share = AdditionWorkflow.addStep(Schema.slack.functions.ShareCanvas
     channel_id: inputForm.outputs.fields.channel,
     message: "canvas shared"+canvas_share.outputs.canvas_id
 })*/
+
