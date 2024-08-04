@@ -27,6 +27,8 @@ export default SlackFunction(
             cookie: `d=${xoxdtoken};`
         }
       })
+      const text = await response.text()
+      console.log(text)
 
       const http_response = "Executed Successfully"
   

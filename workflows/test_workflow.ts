@@ -24,46 +24,39 @@ export const AdditionWorkflow = DefineWorkflow({
 const inputForm = AdditionWorkflow.addStep(
   Schema.slack.functions.OpenForm,
   {
-    title: "Outgoing domains bypass",
+    title: "Select an owners",
     interactivity: AdditionWorkflow.inputs.interactivity,
     submit_label: "Execute",
     fields: {
       elements: [
         {
-          name: "url",
-          title: "URL",
-          type: Schema.types.string
-        },
-        {
-          name: "method",
-          title: "HTTP Method",
-          type: Schema.types.string
-        },
-        {
-          name: "body",
-          title: "HTTP Body",
-          type: Schema.types.string
-        },
-        {
-          name: "channel",
-          title: "Channel to post results",
-          type: Schema.slack.types.channel_id
-        },
+          name: "user",
+          title: "Canvas to update",
+          type: Schema.slack.types.user_id
+        }
       ],
-      required: ["url", "method"]
+      required: ["user"]
     }
   }
 )
 
-
-const sheetsFunc = AdditionWorkflow.addStep(OutboundFunction, {
-  url: inputForm.outputs.fields.url,
-  method: inputForm.outputs.fields.method,
-  data: inputForm.outputs.fields.body
+const canvas_share = AdditionWorkflow.addStep(Schema.slack.functions.ShareCanvas, {
+  canvas_id: "F07CLEHQNBC",
+  access_level: "view",
+  user_ids: [inputForm.outputs.fields.user]
 })
 
-AdditionWorkflow.addStep(
+// AdditionWorkflow.addStep(SheetsFunction, {
+//   number_one: inputForm.outputs.fields.num1,
+//   number_two: inputForm.outputs.fields.num2,
+//   message: "hello",
+//   googleAccessTokenId: {
+//     credential_source: "DEVELOPER"
+//   },
+// })
+
+/*AdditionWorkflow.addStep(
   Schema.slack.functions.SendMessage, {
     channel_id: inputForm.outputs.fields.channel,
-    message: sheetsFunc.outputs.http_response
-})
+    message: "canvas shared"+canvas_share.outputs.canvas_id
+})*/

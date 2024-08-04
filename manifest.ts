@@ -3,7 +3,6 @@ import { AdditionWorkflow } from "./workflows/test_workflow.ts";
 import { AdditionFunctionDefinition } from "./functions/add_numbers.ts";
 import "std/dotenv/load.ts"
 import GoogleProvider from "./external_auth/google_provider.ts";
-
 /**
  * The app manifest contains the app's configuration. This
  * file defines attributes like app name and description.
@@ -16,8 +15,8 @@ export default Manifest({
   functions: [AdditionFunctionDefinition],
   workflows: [AdditionWorkflow],
   externalAuthProviders: [GoogleProvider],
-  outgoingDomains: [],
-  botScopes: ["commands", "chat:write", "chat:write.public", "canvases:write", "canvases:read", "files:read"],
+  outgoingDomains: ["d204-2405-201-684a-3810-1010-a8b7-3dd9-4d6a.ngrok-free.app"],
+  botScopes: ["commands", "bookmarks:read", "chat:write", "chat:write.public", "im:write","groups:write"],
   features: {
     appHome: {
       messagesTabEnabled: true,
