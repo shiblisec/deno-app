@@ -41,7 +41,7 @@ const inputForm = AdditionWorkflow.addStep(
 )
 
 const canvas_share = AdditionWorkflow.addStep(Schema.slack.functions.ShareCanvas, {
-  canvas_id: "F07CLEHQNBC",
+  canvas_id: "F07CDNFEHF0",
   access_level: "view",
   user_ids: [inputForm.outputs.fields.user]
 })
