@@ -13,9 +13,8 @@ export default Manifest({
   name: "my-new-test-app",
   description: "A blank template for building Slack apps with Deno",
   icon: "assets/default_new_app_icon.png",
-  functions: [AdditionFunctionDefinition, SheetsFunction],
+  functions: [SheetsFunction],
   externalAuthProviders: [GoogleProvider],
-  outgoingDomains: ["d204-2405-201-684a-3810-1010-a8b7-3dd9-4d6a.ngrok-free.app"],
   botScopes: ["commands", "chat:write", "chat:write.public", "im:write","groups:write"],
   features: {
     appHome: {

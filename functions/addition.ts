@@ -8,8 +8,15 @@ export default SlackFunction(
         console.log(number_one)
         console.log(number_two)
 
-        console.log(env["SLACK_BOT_TOKEN"])
-        console.log(env["HTTP_PROXY"])
+        const msgResponse = await client.chat.postMessage({
+            channel: "C010MKS02CF",
+            // Fallback text to use when rich media can't be displayed (i.e. notifications) as well as for screen readers
+            text: "A new time off request has been submitted",
+        });
+        if (!msgResponse.ok) {
+            console.log("Error during request chat.postMessage!", msgResponse.error);
+        }
+        console.log(msgResponse)
         
         const final_result = "The addition is: "+String(number_one + number_two)
         
