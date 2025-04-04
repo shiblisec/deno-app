@@ -14,6 +14,7 @@ export default Manifest({
   description: "A blank template for building Slack apps with Deno",
   icon: "assets/default_new_app_icon.png",
   functions: [SheetsFunction],
+  //workflows: [AdditionWorkflow],
   externalAuthProviders: [GoogleProvider],
   botScopes: ["commands", "chat:write", "chat:write.public", "im:write","groups:write"],
   features: {

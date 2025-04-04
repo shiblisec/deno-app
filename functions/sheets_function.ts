@@ -7,17 +7,13 @@ export const SheetsFunction = DefineFunction({
     source_file: "functions/sheets.ts",
     input_parameters: {
         properties: {
-          message: {
-            type: Schema.types.string,
-            description: "Message to be posted",
-          },
           // Define token here
           googleAccessTokenId: {
             type: Schema.slack.types.oauth2,
             oauth2_provider_key: "google",
           },
         },
-        required: ["message"],
+        required: [],
       },
       output_parameters: {
         properties: {
