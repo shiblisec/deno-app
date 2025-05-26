@@ -6,5 +6,12 @@
     "team_domain": "default-test-h1",
     "team_id": "E06QQK03EHG",
     "user_id": "U08J9A03G6T"
+  },
+  "T010MKRUPJT": {
+    "app_id": "A08TZ7W1EER",
+    "IsDev": true,
+    "team_domain": "redassassin",
+    "team_id": "T010MKRUPJT",
+    "user_id": "U010D1NKRBM"
   }
 }
